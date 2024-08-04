@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}INVESTQUEST{% endblock %}</title>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        footer {
+            background-color: #222;
+            color: #fff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+        .navbar {
+            background-color: #333;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: #fff;
+        }
+        .navbar-nav .nav-item .nav-link {
+            color: #bbb;
+            transition: color 0.3s ease;
+        }
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #fff;
+        }
+        .navbar-nav .nav-item .nav-link.username {
+            font-weight: bold;
+            color: #ffd700;
+        }
+        .login-container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+            animation: fadeIn 1s ease;
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+        }
+        .login-container label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .login-container input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+        .login-container input:focus {
+            border-color: #007bff;
+        }
+        .login-container button {
+            padding: 10px;
+            background: linear-gradient(to right, #28a745, #218838);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .login-container button:hover {
+            background: linear-gradient(to right, #218838, #28a745);
+        }
+        .login-container .forgot-password, .login-container .signup {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .login-container .forgot-password a, .login-container .signup a {
+            color: #28a745;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .login-container .forgot-password a:hover, .login-container .signup a:hover {
+            text-decoration: underline;
+            color: #218838;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="{% url 'home' %}">INVESTQUEST</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'video_library' %}">Video Library</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'course_list' %}">Courses</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'quiz_view' %}">Quizzes</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'webinar_schedule' %}">Webinars</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'post_list' %}">Community Engagements</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'personalized_dashboard' %}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'virtual_trading_dashboard' %}">Virtual Trading</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'candlestick_chart' %}">Candlestick Chart</a></li>
+                {% if user.is_authenticated %}
+                <li class="nav-item"><span class="nav-link username">{{ user.username }}</span></li>
+                <li class="nav-item">
+                    <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-link nav-link" style="display: inline; padding: 0;">Logout</button>
+                    </form>
+                </li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <div class="content">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 INVESTQUEST. All rights reserved.</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+{% comment %} 
+
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>INVESTQUEST</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+        }
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px;
+        }
+        footer {
+            background-color: #222;
+            color: #fff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+        .navbar {
+            background-color: #333;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: #fff;
+        }
+        .navbar-nav .nav-item .nav-link {
+            color: #bbb;
+            transition: color 0.3s ease;
+        }
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #fff;
+        }
+        .navbar-nav .nav-item .nav-link.username {
+            font-weight: bold;
+            color: #ffd700;
+        }
+        .login-container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+            animation: fadeIn 1s ease;
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+        }
+        .login-container label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .login-container input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+        .login-container input:focus {
+            border-color: #007bff;
+        }
+        .login-container button {
+            padding: 10px;
+            background: linear-gradient(to right, #28a745, #218838);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .login-container button:hover {
+            background: linear-gradient(to right, #218838, #28a745);
+        }
+        .login-container .forgot-password, .login-container .signup {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .login-container .forgot-password a, .login-container .signup a {
+            color: #28a745;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .login-container .forgot-password a:hover, .login-container .signup a:hover {
+            text-decoration: underline;
+            color: #218838;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="{% url 'home' %}">INVESTQUEST </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'video_library' %}">Video Library</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'course_list' %}">Courses</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'quiz_view' %}">Quizzes</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'webinar_schedule' %}">Webinars</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'post_list' %}">Community Engagements</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'personalized_dashboard' %}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'virtual_trading_dashboard' %}">Virtual Trading</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'candlestick_chart' %}">Candlestick Chart</a></li>
+                {% if user.is_authenticated %}
+                <li class="nav-item"><span class="nav-link username">{{ user.username }}</span></li>
+                <li class="nav-item">
+                    <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-link nav-link" style="display: inline; padding: 0;">Logout</button>
+                    </form>
+                </li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Signup</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <footer>
+        <p>&copy; 2024 INVESTQUEST</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+ {% endcomment %}

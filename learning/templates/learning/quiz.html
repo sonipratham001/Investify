@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+            padding-top: 20px;
+        }
+        .container {
+            max-width: 800px;
+        }
+        .question {
+            margin-bottom: 30px;
+            border: 1px solid #dee2e6;
+            border-radius: .25rem;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        .option {
+            margin-bottom: 10px;
+        }
+        .result, .explanation {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .explanation {
+            color: #dc3545;
+        }
+        .submit-btn {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: .25rem;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Quiz</h1>
+        <div id="quiz-container">
+            {% csrf_token %}
+            {% for question in questions %}
+                <div class="question" data-question-id="{{ question.id }}">
+                    <h3>{{ question.text }}</h3>
+                    <form class="quiz-form">
+                        {% csrf_token %}
+                        {% for option in question.options.all %}
+                            <div class="form-check option">
+                                <input class="form-check-input" type="radio" name="option" value="{{ option.id }}" id="option-{{ option.id }}">
+                                <label class="form-check-label" for="option-{{ option.id }}">
+                                    {{ option.text }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="submit-btn">Submit</button>
+                    </form>
+                    <div class="result" id="result-{{ question.id }}"></div>
+                    <div class="explanation" id="explanation-{{ question.id }}"></div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            var csrftoken = getCookie('csrftoken');
+
+            function csrfSafeMethod(method) {
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+
+            $('.quiz-form').on('submit', function(event) {
+                event.preventDefault();
+                var $form = $(this);
+                var questionId = $form.closest('.question').data('question-id');
+                $.ajax({
+                    type: 'POST',
+                    url: '',
+                    data: $form.serialize() + '&question_id=' + questionId,
+                    success: function(response) {
+                        var message = response.message;
+                        var explanation = response.explanation;
+                        $('#result-' + response.question_id).html(message);
+                        if (!response.is_correct) {
+                            $('#explanation-' + response.question_id).html('Explanation: ' + explanation).show();
+                        } else {
+                            $('#explanation-' + response.question_id).hide();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

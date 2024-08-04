@@ -1,0 +1,111 @@
+{% extends 'learning/base.html' %}
+{% block content %}
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .container h1 {
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 40px;
+        color: #333;
+        font-weight: 700;
+    }
+
+    .webinar-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        margin-bottom: 30px;
+        background: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .webinar-item h5 {
+        font-size: 1.6em;
+        color: black;
+        margin: 0 0 10px 0;
+        font-weight: 600;
+    }
+
+    .webinar-item p {
+        font-size: 1.1em;
+        color: #555;
+        line-height: 1.6;
+        margin: 5px 0;
+    }
+
+    .webinar-item p:last-child {
+        font-size: 0.9em;
+        color: #777;
+        margin-bottom: 20px;
+    }
+
+    .webinar-item .btn-primary {
+        align-self: flex-start;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+    .webinar-item .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    @media (min-width: 768px) {
+        .webinar-item {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .webinar-item h5 {
+            font-size: 1.8em;
+        }
+
+        .webinar-item p {
+            font-size: 1em;
+        }
+
+        .webinar-item .btn-primary {
+            margin-top: 0;
+            margin-left: 20px;
+        }
+    }
+</style>
+
+<div class="container1">
+    <h1>Webinar Schedule</h1>
+    <ul style="padding: 0; list-style: none;">
+        {% for webinar in webinars %}
+        <li class="webinar-item">
+            <div>
+                <h5>{{ webinar.title }}</h5>
+                <p>{{ webinar.description }}</p>
+                <p>Scheduled at: {{ webinar.scheduled_at }}</p>
+            </div>
+            <a href="{{ webinar.url }}" class="btn btn-primary">Join Webinar</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

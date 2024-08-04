@@ -1,0 +1,284 @@
+
+
+
+
+
+
+
+{% extends 'learning/base.html' %}
+
+{% block content %}
+<div class="container text-center my-5">
+    <div class="home-content p-5 rounded">
+        <h1 class="display-4">Welcome to INVESTQUEST</h1>
+        <p class="lead">Your gateway to understanding capital markets.</p>
+        <a href="{% url 'login' %}" class="btn btn-primary btn-lg mt-4">Get Started</a>
+    </div>
+</div>
+
+<div class="features container mt-5">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="feature-card p-4 rounded">
+                <h2>Video Library</h2>
+                <p>Explore our extensive collection of educational videos on various topics related to capital markets.</p>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="feature-card p-4 rounded">
+                <h2>Courses</h2>
+                <p>Dive into our structured courses designed to provide in-depth knowledge and insights into capital markets.</p>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="feature-card p-4 rounded">
+                <h2>Quizzes</h2>
+                <p>Test your knowledge with our engaging quizzes and track your progress as you learn.</p>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="feature-card p-4 rounded">
+                <h2>Webinars</h2>
+                <p>Join our live webinars and interact with experts to gain valuable insights and tips.</p>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="feature-card p-4 rounded">
+                <h2>Community Engagements</h2>
+                <p>Connect with other learners, participate in discussions, and share your knowledge.</p>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="feature-card p-4 rounded">
+                <h2>Dashboard</h2>
+                <p>Access your personalized dashboard to track your learning journey and achievements after logging in.</p>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="feature-card p-4 rounded">
+                <h2>Virtual Trading</h2>
+                <p>Practice trading in a risk-free environment with our virtual trading platform.</p>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="feature-card p-4 rounded">
+                <h2>Candlestick Chart</h2>
+                <p>Analyze stock performance with our interactive candlestick chart tool.</p>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="feature-card p-4 rounded">
+                <h2>Signup</h2>
+                <p>Create an account to start your learning journey and access all features.</p>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="feature-card p-4 rounded">
+                <h2>Admin</h2>
+                <p>For Admin and Staff users.</p>
+                <a href="/admin" class="btn btn-primary">Access Admin Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<style>
+    
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        position: relative;
+        z-index: 1;
+    }
+    .home-content {
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        animation: fadeIn 1.5s ease;
+        position: relative;
+        z-index: 2;
+    }
+    .home-content h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+    }
+    .home-content p {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    .home-content .btn {
+        background: #ffffff;
+        color: #2575fc;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        font-size: 1.25rem;
+        border-radius: 30px;
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+    .home-content .btn:hover {
+        background: #2575fc;
+        color: #ffffff;
+    }
+    .features {
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        padding: 2rem;
+        border-radius: 10px;
+    }
+    .feature-card {
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+    .feature-card:hover {
+        transform: translateY(-10px);
+    }
+    .feature-card h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    .feature-card p {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+
+
+
+{% comment %} {% extends 'learning/base.html' %}
+
+{% block title %}Home - INVESTQUEST{% endblock %}
+
+{% block content %}
+<div class="home-content">
+    <h1>Welcome to INVESTQUEST</h1>
+    <p>Unlock your financial potential with our tools and resources.</p>
+    <a href="{% url 'video_library' %}" class="btn btn-primary">Get Started</a>
+</div>
+<div class="features row mt-5">
+    <div class="col-md-4 mb-4">
+        <div class="feature-card">
+            <h2>Learn</h2>
+            <p>Access a variety of courses and webinars to boost your financial knowledge.</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="feature-card">
+            <h2>Trade</h2>
+            <p>Practice your trading skills with our virtual trading platform.</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="feature-card">
+            <h2>Engage</h2>
+            <p>Join our community engagements and connect with fellow learners.</p>
+        </div> 
+    </div>
+</div>
+<style>
+    .home-content {
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        animation: fadeIn 1.5s ease;
+        position: relative;
+        z-index: 2;
+    }
+    .home-content h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+    }
+    .home-content p {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    .home-content .btn {
+        background: #ffffff;
+        color: #2575fc;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        font-size: 1.25rem;
+        border-radius: 30px;
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+    .home-content .btn:hover {
+        background: #2575fc;
+        color: #ffffff;
+    }
+    .features {
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        padding: 2rem;
+        border-radius: 10px;
+    }
+    .feature-card {
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+    .feature-card:hover {
+        transform: translateY(-10px);
+    }
+    .feature-card h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    .feature-card p {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @media (max-width: 768px) {
+        .home-content h1 {
+            font-size: 2.5rem;
+        }
+        .home-content p {
+            font-size: 1.2rem;
+        }
+        .home-content .btn {
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+        }
+        .feature-card h2 {
+            font-size: 1.5rem;
+        }
+        .feature-card p {
+            font-size: 1rem;
+        }
+    }
+</style>
+{% endblock %} {% endcomment %}

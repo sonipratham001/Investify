@@ -1,0 +1,65 @@
+{% extends 'learning/base.html' %}
+
+{% block content %}
+<style>
+    .dashboard-container {
+        width: 80%;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .page-title {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        color: #444;
+    }
+
+    h2 {
+        font-size: 1.8em;
+        margin-bottom: 15px;
+        color: #666;
+    }
+
+    .welcome-message {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+    }
+
+    .learning-paths-list {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .learning-paths-list li {
+        font-size: 1.1em;
+        background-color: #f9f9f9;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+    }
+
+    .learning-paths-list li:hover {
+        background-color: #e9e9e9;
+    }
+</style>
+
+<div class="dashboard-container">
+    <h1 class="page-title">Personalized Dashboard</h1>
+    <p class="welcome-message">Welcome, {{ user.username }}!</p>
+    {% comment %} <p>Your Reputation: {{ user.userprofile.reputation }}</p> {% endcomment %}
+    <h2>Your Learning Paths</h2>
+    <ul class="learning-paths-list">
+        {% for path in learning_paths %}
+            <li>{{ path.course.title }} - Progress: {{ path.progress }}%</li>
+        {% empty %}
+            <li>You have no learning paths.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
